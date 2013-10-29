@@ -21,7 +21,11 @@ class PageTest < Minitest::Test
   end
 
   def test_page_has_a_url
-    assert_equal "/chamber-of-secrets", page.url
+    assert_equal "chamber-of-secrets", page.url
   end
 
+  def test_page_has_a_clean_url
+    page = Page.new(title: "skldfuo$ %% d ?? /sjdlf?'!'")
+    assert_equal "skldfuo--d--sjdlf", page.url
+  end
 end
