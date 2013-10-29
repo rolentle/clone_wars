@@ -21,7 +21,7 @@ class PageTest < Minitest::Test
   end
 
   def test_page_has_a_url
-    assert_equal "chamber-of-secrets", page.url
+    assert_equal "/chamber-of-secrets", page.url
   end
 
 end
