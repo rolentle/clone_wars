@@ -1,6 +1,8 @@
 require 'sinatra'
 require 'better_errors'
 
+require './lib/clone_wars'
+
 class CloneWarsApp < Sinatra::Base
   set :root, 'lib/app'
   configure :development do
