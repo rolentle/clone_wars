@@ -7,6 +7,16 @@ require './lib/app.rb'
 class CloneWarsAppTest < Minitest::Test
   include Rack::Test::Methods
 
+  attr_reader :pages
+
+  def setup
+    PageStore.create(title: 'This is a title')
+    PageStore.create(title: 'Rad Stuff')
+    PageStore.create(title: 'Do not read this')
+    @pages = PageStore.all
+    
+  end
+
   def app
     CloneWarsApp
   end
@@ -19,5 +29,12 @@ class CloneWarsAppTest < Minitest::Test
   def test_about_page
     get '/self-defense-denver'
     assert_equal 200, last_response.status
+  end
+
+  def test_page_urls
+    pages.each do |page|
+      get page.url 
+      assert_equal 200, last_response.status
+    end
   end
 end
