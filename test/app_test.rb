@@ -41,4 +41,16 @@ class CloneWarsAppTest < Minitest::Test
       assert_equal 200, last_response.status
     end
   end
+
+  def test_create_page
+    assert_equal 3, PageStore.all.count
+    params = {
+      :page => {
+        :title => "samples",
+        :body => "anything"
+      }
+    }
+    post '/page', params
+    assert_equal 4, PageStore.all.count
+  end
 end
