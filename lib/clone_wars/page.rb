@@ -7,7 +7,7 @@ class Page
   end
 
   def url
-    '/' + title.gsub(' ', '-').downcase
+    title.gsub(' ', '-').downcase.gsub(/[^\w-]/, '')
   end
 
 end

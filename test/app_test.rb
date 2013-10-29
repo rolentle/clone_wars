@@ -14,7 +14,10 @@ class CloneWarsAppTest < Minitest::Test
     PageStore.create(title: 'Rad Stuff')
     PageStore.create(title: 'Do not read this')
     @pages = PageStore.all
-    
+  end
+  
+  def teardown
+    PageStore.clear_table
   end
 
   def app
@@ -26,8 +29,9 @@ class CloneWarsAppTest < Minitest::Test
     assert_equal 200, last_response.status
   end
 
-  def test_about_page
-    get '/self-defense-denver'
+  def test_one_page_url
+    page = PageStore.create(title: 'does one work')
+    get "/#{page.url}"
     assert_equal 200, last_response.status
   end
 
