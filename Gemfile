@@ -11,6 +11,7 @@ end
 group :development do
   gem 'better_errors'
   gem 'shotgun'
+  gem 'sinatra-advanced-routes'
 end
 
 
