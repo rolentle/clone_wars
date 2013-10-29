@@ -17,4 +17,9 @@ class CloneWarsAppTest < Minitest::Test
     get '/'
     assert_equal 200, last_response.status
   end
+
+  def test_about_page
+    get '/self-defense-denver'
+    assert_equal 200, last_response.status
+  end
 end

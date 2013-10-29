@@ -9,6 +9,11 @@ class CloneWarsApp < Sinatra::Base
   end
 
   get '/' do
-    erb :index
+    erb :index, :layout => false
   end
+
+  get '/self-defense-denver' do
+    erb :page, :locals => { :title => "WEEEE" }
+  end
+
 end
