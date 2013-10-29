@@ -16,6 +16,11 @@ class CloneWarsApp < Sinatra::Base
     erb :index, :layout => false
   end
 
+  post '/page' do
+    attributes = params[:page]
+    PageStore.create(attributes)
+  end
+
   get '/:url' do |url|
     page = PageStore.find_by_url(url)
     erb :page, :locals => { :page => page }
