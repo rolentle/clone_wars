@@ -10,6 +10,7 @@ end
 
 group :development do
   gem 'better_errors'
+  gem 'shotgun'
 end
 
 
