@@ -1,39 +1,38 @@
-require 'yaml/store'
+require 'sequel'
+require 'sqlite3'
 
 class PageStore
 
   def self.create(page_attributes)
-    database.transaction do
-      database['pages'] << page_attributes
-    end
+    database[:pages].insert(page_attributes)
     Page.new(page_attributes)
   end
 
   def self.all
-    database.transaction do
-      database['pages'].map do |page_data|
-        Page.new(page_data)
-      end
+    database[:pages].to_a.map do |page_data|
+      Page.new(page_data)
     end
   end
 
   def self.database
-    return @database if @database
+    return @database if @database && @database.table_exists?(:pages)
     unless ENV['RACK_ENV'] == 'test'
-      @database ||= YAML::Store.new('db/clone_wars')
+      @database = Sequel.sqlite('db/clone_wars.sqlite3')
     else
-      @database ||= YAML::Store.new('test/db/clone_wars')
+      @database = Sequel.sqlite('test/db/clone_wars.sqlite3')
     end
-    @database.transaction do
-      @database['pages'] ||= []
+    unless @database.table_exists?(:pages)
+      @database.create_table :pages do 
+        primary_key :id
+        String      :title
+        Text        :body
+      end
     end
     @database
   end
 
   def self.clear_table
-    database.transaction do
-      database['pages'] = []
-    end
+    database.drop_table(:pages) if database.table_exists?(:pages)
   end
 
   def self.find_by_url(url)
