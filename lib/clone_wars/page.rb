@@ -6,8 +6,8 @@ class Page
     @title = attributes[:title]
   end
 
-  def slug
-    title.gsub(' ', '-')
+  def url
+    '/' + title.gsub(' ', '-').downcase
   end
 
 end
