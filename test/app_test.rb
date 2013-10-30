@@ -53,4 +53,9 @@ class CloneWarsAppTest < Minitest::Test
     post '/page', params
     assert_equal 4, PageStore.all.count
   end
+
+  def test_admin_pages_shows_all_pages
+    get '/admin/pages'
+    assert_equal 200, last_response.status
+  end
 end
