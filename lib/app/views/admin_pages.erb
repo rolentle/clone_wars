@@ -1,6 +1,59 @@
-<h1>All Current Pages</h1>
-<ul>
-  <% pages.each do |page| %>
-    <li><%= page.title %></li>
-  <% end %>
-</ul>
+<div class="row-fluid">
+  <div class="alert alert-success">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <h4>Success</h4>
+    The operation completed successfully</div>
+  <div class="navbar">
+    <div class="navbar-inner">
+      <ul class="breadcrumb">
+        <i class="icon-chevron-left hide-sidebar"><a href='#' title="Hide Sidebar" rel='tooltip'>&nbsp;</a></i>
+        <i class="icon-chevron-right show-sidebar" style="display:none;"><a href='#' title="Show Sidebar" rel='tooltip'>&nbsp;</a></i>
+        <li>
+        <a href="#">Dashboard</a> <span class="divider">/</span>
+        </li>
+        <li>
+        <a href="#">Settings</a> <span class="divider">/</span>
+        </li>
+        <li class="active">Tools</li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="row-fluid">
+  <div class="span12">
+    <!-- block -->
+    <div class="block">
+      <div class="navbar navbar-inner block-header">
+        <div class="muted pull-left">Pages</div>
+        <div class="pull-right"><span class="badge badge-info"><%= pages.count %></span>
+
+        </div>
+      </div>
+      <div class="block-content collapse in">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Title</th>
+              <th>Body</th>
+              <th>URL</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+          <% pages.each do |page| %>
+            <tr>
+              <td><%= page.id %></td>
+              <td><%= page.title %></td>
+              <td><%= page.body.to_s[0..100] %>...</td>
+              <td><a href='/<%= page.url %>'><%= page.url %></a></td>
+              <td><a href='/admin/pages/<%= page.id %>/edit'>Edit</a></td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- /block -->
+  </div>
+</div>
