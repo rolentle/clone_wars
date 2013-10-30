@@ -1,0 +1,9 @@
+<h1>Edit this page at your own risk.</h1>
+<form action= '/page/<%= page.id %>', method= 'POST'>
+  <input type= 'hidden', name= '_method', value= 'PUT'>
+  <input id= 'title', type= 'text', name= 'page[title]', placeholder= 'page title', value= '<%= page.title %>' >
+  <textarea id= 'body', name= 'page[body]', placeholder= 'page description'>
+    <%= page.body %>
+  </textarea>
+  <input type= 'submit', value= 'Re-publish'>
+</form>

@@ -40,4 +40,19 @@ class PageStore
       page.url == url
     end
   end
+
+  def self.find(id)
+    attributes = database.from(:pages).where(:id => id).to_a[0]
+    if !attributes.nil?
+      Page.new(attributes)
+    end
+  end
+
+  def self.update(id, attributes)
+    status = database.from(:pages).where(:id => id).update(attributes)
+    if status > 0
+      find(id)
+    end
+  end
+
 end

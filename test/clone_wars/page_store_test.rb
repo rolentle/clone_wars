@@ -39,4 +39,18 @@ class PageStoreTest < MiniTest::Test
     found_page = PageStore.find_by_url(page.url)
     assert_equal page.title, found_page.title 
   end
+
+  def test_it_can_find_with_id
+    page = PageStore.create(title: 'wednesday')
+    assert_equal "wednesday", PageStore.find(1).title
+  end
+
+  def test_it_can_update_a_page
+    PageStore.create(title: 'afternoon', body: 'tea')
+    updated_attributes = { title: 'zoom zoom', body: 'boom boom' }
+    page = PageStore.update(1, updated_attributes)
+    assert_equal "zoom zoom", page.title
+    assert_equal "boom boom", page.body
+  end
+
 end

@@ -58,4 +58,18 @@ class CloneWarsAppTest < Minitest::Test
     get '/admin/pages'
     assert_equal 200, last_response.status
   end
+
+  def test_edit_page
+    page = PageStore.find(1)
+    assert_equal 'This is a title', page.title
+    params = { 
+      :page => {
+        title: 'This is the new title',
+        body: page.body
+      }
+    }
+    put "/page/1", params
+    assert_equal "This is the new title", PageStore.find(1).title
+  end
+
 end
