@@ -19,10 +19,21 @@ class CloneWarsApp < Sinatra::Base
   post '/page' do
     attributes = params[:page]
     PageStore.create(attributes)
+    redirect '/admin/pages'
+  end
+
+  get '/admin/pages/new' do
+    erb :new_page, :locals => { :page => Page.new }
+  end
+
+  get '/admin/pages' do
+    erb :admin_pages, :locals => { :pages => PageStore.all }
   end
 
   get '/:url' do |url|
     page = PageStore.find_by_url(url)
     erb :page, :locals => { :page => page }
   end
+
+
 end

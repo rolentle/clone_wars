@@ -8,6 +8,8 @@ group :test do
   gem 'rack-test'
   gem 'minitest'
   gem 'guard-minitest'
+  gem 'capybara', require: false
+  gem 'minitest-capybara', require: false
 end
 
 group :development do
