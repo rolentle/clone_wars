@@ -32,6 +32,7 @@ class CloneWarsMgmtTest < Minitest::Test
   end
 
   def test_can_create_page
+    skip
     admin.visit '/admin/pages/new'
     admin.fill_in 'title', :with => 'chamber of secrets'
     admin.fill_in 'body', :with => 'harry second year'
