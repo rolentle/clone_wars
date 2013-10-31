@@ -1,6 +1,7 @@
 require './test/test_helper'
 require './lib/clone_wars/page'
 
+require 'pry'
 class PageTest < Minitest::Test
 
   attr_reader :page, :attributes
@@ -31,9 +32,8 @@ class PageTest < Minitest::Test
     assert_equal "skldfuo--d--sjdlf", page.url
   end
 
-  def test_its_body_gets_converted_to_html
-    page = Page.new(title: 'Yeah!', body: '###Headline')
-
-    assert_equal '<h3>Headline</h3>', page.html_body
+  def test_its_has_html_body
+    page = Page.new(title: 'Yeah!', body: '###Headline', html_body: "<h3>Headline</h3>\n")
+    assert_equal "<h3>Headline</h3>\n", page.html_body
   end
 end
