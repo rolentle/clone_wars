@@ -1,11 +1,20 @@
 require 'sequel'
 require 'sqlite3'
+require 'redcarpet'
 
 class PageStore
 
   def self.create(page_attributes)
     database[:pages].insert(page_attributes)
     Page.new(page_attributes)
+  end
+
+  def self.htmlify(raw_markdown)
+    markdown.render(raw_markdown)
+  end
+
+  def self.markdown
+    @markdown ||= Redcarpet::Markdown.new(Redcarpet::Render::HTML)
   end
 
   def self.all

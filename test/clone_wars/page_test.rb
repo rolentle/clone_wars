@@ -30,4 +30,10 @@ class PageTest < Minitest::Test
     page = Page.new(title: "skldfuo$ %% d ?? /sjdlf?'!'")
     assert_equal "skldfuo--d--sjdlf", page.url
   end
+
+  def test_its_body_gets_converted_to_html
+    page = Page.new(title: 'Yeah!', body: '###Headline')
+
+    assert_equal '<h3>Headline</h3>', page.html_body
+  end
 end
