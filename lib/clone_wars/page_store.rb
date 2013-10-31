@@ -5,6 +5,11 @@ require 'redcarpet'
 class PageStore
 
   def self.create(page_attributes)
+    if page_attributes[:body]
+      raw_md = page_attributes[:body].to_s
+      page_attributes[:html_body] = htmlify(raw_md)
+    end
+
     database[:pages].insert(page_attributes)
     Page.new(page_attributes)
   end
@@ -31,10 +36,11 @@ class PageStore
       @database = Sequel.sqlite('test/db/clone_wars.sqlite3')
     end
     unless @database.table_exists?(:pages)
-      @database.create_table :pages do 
+      @database.create_table :pages do
         primary_key :id
         String      :title
         Text        :body
+	Text        :html_body
       end
     end
     @database

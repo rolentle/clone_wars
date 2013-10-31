@@ -37,7 +37,7 @@ class PageStoreTest < MiniTest::Test
     # skip
     page = PageStore.create(title: 'testing title find')
     found_page = PageStore.find_by_url(page.url)
-    assert_equal page.title, found_page.title 
+    assert_equal page.title, found_page.title
   end
 
   def test_it_can_find_with_id
@@ -57,6 +57,12 @@ class PageStoreTest < MiniTest::Test
     markdown = "#Headline"
     html = PageStore.htmlify(markdown)
     assert_equal "<h1>Headline</h1>\n", html
+  end
+
+  def test_html_body_gets_added_to_the_database
+    PageStore.create(title: 'Hey', body: '#Test')
+     page  = PageStore.find(1)
+     assert_equal "<h1>Test</h1>\n", page.html_body
   end
 
 
