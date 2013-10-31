@@ -42,7 +42,8 @@ class CloneWarsApp < Sinatra::Base
   end
 
   get '/admin/pages' do
-    erb :admin_pages, :locals => { :pages => PageStore.all }
+    erb :admin_pages, :locals => { :pages => PageStore.all, :title => 'Pages' },
+                      :layout => :admin_layout
   end
 
   get '/admin/pages/:id/edit' do |id|
