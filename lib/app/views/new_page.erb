@@ -1,6 +1,12 @@
-<h1>Create a page at your own risk.</h1>
-<form action= '/page', method= 'POST'>
-  <input id= 'title', type= 'text', name= 'page[title]', placeholder= 'page title' >
-  <textarea id= 'body', name= 'page[body]', placeholder= 'page description'></textarea>
-  <input type= 'submit', value= 'Publish'>
-</form>
+<!-- block -->
+<div class="block">
+  <div class="navbar navbar-inner block-header">
+    <div class="muted pull-left">New Page</div>
+  </div>
+  <div class="block-content collapse in">
+    <div class="span12">
+      <%= erb :page_form, :locals => { :page => page } %>
+    </div>
+  </div>
+</div>
+<!-- /block -->

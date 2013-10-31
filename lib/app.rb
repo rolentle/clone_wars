@@ -24,7 +24,7 @@ class CloneWarsApp < Sinatra::Base
       if params[:user] == "admin" && params[:password] == "admin"
         session[:user] == "admin"
       end
-      redirect '/login' unless session[:user]
+      #redirect '/login' unless session[:user]
     end
   end
 
@@ -35,12 +35,14 @@ class CloneWarsApp < Sinatra::Base
   get '/' do
     erb :index, :layout => false
   end
-
-  post '/page' do
-    authenticate!
-    attributes = params[:page]
-    PageStore.create(attributes)
-    redirect '/admin/pages'
+  
+  ['/page', '/page/'].each do |url|
+    post url do
+      authenticate!
+      attributes = params[:page]
+      PageStore.create(attributes)
+      redirect '/admin/pages'
+    end
   end
 
   put '/page/:id' do |id|
@@ -53,29 +55,30 @@ class CloneWarsApp < Sinatra::Base
     end
   end
 
-  get '/admin/pages/new' do
-    authenticate!
-    erb :new_page, :locals => { :page => Page.new }
-  end
-
   get '/admin/pages' do
     authenticate!
     erb :admin_pages, :locals => { :pages => PageStore.all, :title => 'Pages' },
                       :layout => :admin_layout
   end
 
+  get '/admin/pages/new' do
+    authenticate!
+    erb :new_page, :locals => { :page => Page.new, :title => "New Page" }, :layout => :admin_layout
+  end
+
   get '/admin/pages/:id/edit' do |id|
     authenticate!
     page = PageStore.find(id.to_i)
     if page
-      erb :edit_page, :locals => { :page => page }
+      erb :edit_page, :locals => { :page => page, :title => "Edit Page" },
+                      :layout => :admin_layout
     else
       redirect '/admin/pages'
     end
   end
 
   get '/login' do
-    erb :login
+    erb :login, :layout => false
   end
 
   post '/login' do

@@ -1,0 +1,26 @@
+<form action="/page/<%= page.id %>" method="POST" class="form-horizontal">
+  <fieldset>
+    <% if page.id %>
+      <legend>Edit Page</legend>
+      <input type="hidden" name="_method" value="PUT">
+    <% else %>
+      <legend>Create Page</legend>
+    <% end %>
+    <div class="control-group">
+      <label id="title" for="page[title]" class="control-label">Title</label>
+      <div class="controls">
+        <input name="page[title]" placeholder="Page Title" class="input-xlarge focused" id="focusedInput" type="text" value="<%= page.title %>">
+      </div>
+    </div>
+    <div class="control-group">
+      <label id="body" for="page[body]" class="control-label">Body</label>
+      <div class="controls">
+        <textarea name="page[body]" placeholder="Page Body (Markdown)"><%= page.body %></textarea>
+      </div>
+    </div>
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary">Save changes</button>
+      <button type="reset" class="btn">Cancel</button>
+    </div>
+  </fieldset>
+</form>
