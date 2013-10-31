@@ -53,4 +53,11 @@ class PageStoreTest < MiniTest::Test
     assert_equal "boom boom", page.body
   end
 
+  def test_it_can_convert_md_to_html
+    markdown = "#Headline"
+    html = PageStore.htmlify(markdown)
+    assert_equal "<h1>Headline</h1>\n", html
+  end
+
+
 end

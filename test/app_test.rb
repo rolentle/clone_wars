@@ -15,7 +15,7 @@ class CloneWarsAppTest < Minitest::Test
     PageStore.create(title: 'Do not read this')
     @pages = PageStore.all
   end
-  
+
   def teardown
     PageStore.clear_table
   end
@@ -37,7 +37,7 @@ class CloneWarsAppTest < Minitest::Test
 
   def test_page_urls
     pages.each do |page|
-      get page.url 
+      get page.url
       assert_equal 200, last_response.status
     end
   end
@@ -50,26 +50,35 @@ class CloneWarsAppTest < Minitest::Test
         :body => "anything"
       }
     }
-    post '/page', params
+
+    session = { 'rack.session' => { :user => 'admin' } }
+    post '/page', params, session
     assert_equal 4, PageStore.all.count
   end
 
   def test_admin_pages_shows_all_pages
-    get '/admin/pages'
+    session = { "rack.session" => { :user => "admin" } }
+    get '/admin/pages', {}, session
     assert_equal 200, last_response.status
   end
 
   def test_edit_page
     page = PageStore.find(1)
     assert_equal 'This is a title', page.title
-    params = { 
+    params = {
       :page => {
         title: 'This is the new title',
         body: page.body
       }
     }
-    put "/page/1", params
+    session = {"rack.session" => {:user => "admin"}}
+    put "/page/1", params, session
     assert_equal "This is the new title", PageStore.find(1).title
+  end
+
+  def test_has_login
+    get '/login'
+    assert_equal 200, last_response.status
   end
 
 end

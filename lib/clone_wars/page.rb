@@ -12,4 +12,8 @@ class Page
     title.gsub(' ', '-').downcase.gsub(/[^\w-]/, '')
   end
 
+  def html_body
+    body
+  end
+
 end
